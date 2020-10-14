@@ -22,10 +22,31 @@ func (parser *Parser) ParseMicrosoftAntiSpam() {
 	for key, value := range fields {
 		if fieldsMeanings[strings.ToLower(key)] != "" {
 			parser.Fields = append(parser.Fields, &FilteringField{
-				Key:         key,
-				Value:       value,
-				Explanation: fieldsMeanings[strings.ToLower(key)],
+				Key:              key,
+				Value:            value,
+				Explanation:      fieldsMeanings[strings.ToLower(key)],
+				ValueExplanation: parser.ExplainBCL(value),
 			})
 		}
 	}
+}
+
+func (parser *Parser) ExplainBCL(bcl string) string {
+	switch strings.TrimSpace(bcl) {
+	case "0":
+		return "message isn't from a bulk sender"
+	case "1":
+	case "2":
+	case "3":
+		return "message is from a bulk sender that generates few complaints"
+	case "5":
+	case "6":
+		return "message is from a bulk sender that generates a mixed number of complaints"
+	case "7":
+		return "message is from a bulk sender that generates a mixed number of complaints (default)"
+	case "8":
+	case "9":
+		return "message is from a bulk sender that generates a high number of complaints"
+	}
+	return ""
 }
