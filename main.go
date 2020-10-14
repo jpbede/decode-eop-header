@@ -11,9 +11,11 @@ import (
 )
 
 var filePath string
+var tableWidth int
 
 func init() {
 	flag.StringVar(&filePath, "file", "", "Path to EML file")
+	flag.IntVar(&tableWidth, "tableWidth", 80, "Width of the result table")
 }
 
 func main() {
@@ -29,5 +31,5 @@ func main() {
 	env, _ := enmime.ReadEnvelope(br)
 
 	parser := eop.NewParserWithEnvelop(env)
-	parser.ParseAndRender()
+	parser.ParseAndRender(tableWidth)
 }

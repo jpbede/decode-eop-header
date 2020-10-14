@@ -25,10 +25,12 @@ func NewParserWithEnvelop(env *enmime.Envelope) *Parser {
 	}
 }
 
-func (parser *Parser) ParseAndRender() {
+func (parser *Parser) ParseAndRender(tableWidth int) {
 	parser.ParseAntiSpamReport()
 	parser.ParseMicrosoftAntiSpam()
 	parser.ParseAuthenticationResult()
+
+	parser.table.SetColWidth(tableWidth)
 	parser.Render()
 }
 
