@@ -8,6 +8,7 @@ Little tool to decode Microsoft Exchange Online Protection header into a nice vi
 Those informations comes from Microsoft documentations and my experiences as deliverability engineer @ CleverReach.
 
 https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spam-message-headers?view=o365-worldwide
+
 https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/bulk-complaint-level-values?view=o365-worldwide
 
 ## Example output
