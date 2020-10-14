@@ -85,13 +85,9 @@ func (parser *Parser) ExplainSCL(scl string) string {
 	switch strings.TrimSpace(scl) {
 	case "-1":
 		return "message skipped spam filtering"
-	case "0":
+	case "0", "1":
 		return "message was not spam"
-	case "1":
-		return "message was not spam"
-	case "5":
-		return "marked as spam"
-	case "6":
+	case "5", "6":
 		return "marked as spam"
 	case "9":
 		return "marked as high confidence spam"
