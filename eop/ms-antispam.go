@@ -37,7 +37,7 @@ func (parser *Parser) ExplainBCL(bcl string) string {
 		return "message isn't from a bulk sender"
 	case "1", "2", "3":
 		return "message is from a bulk sender that generates few complaints"
-	case "5", "6":
+	case "4", "5", "6":
 		return "message is from a bulk sender that generates a mixed number of complaints"
 	case "7":
 		return "message is from a bulk sender that generates a mixed number of complaints (default)"
