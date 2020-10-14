@@ -1,6 +1,8 @@
 # decode-eop-header
 Little tool to decode Microsoft Exchange Online Protection header into a nice view
 
+**Please be nice to me, the project is work in progress :)**
+
 ## Example output
 
 ```
