@@ -47,6 +47,7 @@ func (parser *Parser) ExplainBCL(bcl string) string {
 	case "8":
 	case "9":
 		return "message is from a bulk sender that generates a high number of complaints"
+	default:
+		return ""
 	}
-	return ""
 }

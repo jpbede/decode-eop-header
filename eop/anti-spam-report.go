@@ -82,8 +82,7 @@ func (parser *Parser) ExplainAntiSpamReportCategory(cat string) string {
 }
 
 func (parser *Parser) ExplainSCL(scl string) string {
-	scl = strings.TrimSpace(scl)
-	switch scl {
+	switch strings.TrimSpace(scl) {
 	case "-1":
 		return "message skipped spam filtering"
 	case "0":
@@ -96,12 +95,12 @@ func (parser *Parser) ExplainSCL(scl string) string {
 		return "marked as spam"
 	case "9":
 		return "marked as high confidence spam"
+	default:
+		return ""
 	}
-	return ""
 }
 
 func (parser *Parser) ExplainSFV(sfv string) string {
-	sfv = strings.TrimSpace(sfv)
 	switch strings.ToLower(strings.TrimSpace(sfv)) {
 	case "blk":
 		return "filtering skipped, sender is on user's Blocked Senders list"
@@ -123,6 +122,7 @@ func (parser *Parser) ExplainSFV(sfv string) string {
 		return "message was marked as spam prior to being processed by spam filtering"
 	case "spm":
 		return "message was marked as spam by spam filtering"
+	default:
+		return ""
 	}
-	return ""
 }
