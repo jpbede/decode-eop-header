@@ -1,5 +1,5 @@
 package eop
 
-func (parser *EOPParser) ParseAuthenticationResult() {
+func (parser *Parser) ParseAuthenticationResult() {
 
 }

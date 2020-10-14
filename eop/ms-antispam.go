@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func (parser *EOPParser) ParseMicrosoftAntiSpam() {
+func (parser *Parser) ParseMicrosoftAntiSpam() {
 	fieldsMeanings := map[string]string{
 		"bcl": "Bulk Confidence Level. A higher BCL indicates a bulk mail message is more likely to generate complaints",
 	}
@@ -21,7 +21,11 @@ func (parser *EOPParser) ParseMicrosoftAntiSpam() {
 
 	for key, value := range fields {
 		if fieldsMeanings[strings.ToLower(key)] != "" {
-			parser.table.Append([]string{key, value, fieldsMeanings[strings.ToLower(key)]})
+			parser.Fields = append(parser.Fields, &FilteringField{
+				Key:         key,
+				Value:       value,
+				Explanation: fieldsMeanings[strings.ToLower(key)],
+			})
 		}
 	}
 }

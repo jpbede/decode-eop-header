@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func (parser *EOPParser) ParseAntiSpamReport() {
+func (parser *Parser) ParseAntiSpamReport() {
 	antiSpamEplain := map[string]string{
 		"ctry": "Source country as determined by the connecting IP address",
 		"cat":  "Category of protection policy",
@@ -32,27 +32,32 @@ func (parser *EOPParser) ParseAntiSpamReport() {
 
 	for key, value := range fields {
 		if antiSpamEplain[strings.ToLower(key)] != "" {
+			var valueExplain string
 			switch key {
 			case "CAT":
-				value = parser.ExplainAntiSpamReportCategory(value)
+				valueExplain = parser.ExplainAntiSpamReportCategory(value)
 			case "IPV":
 				if value == "NLI" {
-					value += " (no ip reputation data found)"
+					valueExplain = "no ip reputation data found"
 				} else if value == "CAL" {
-					value += " (IP on allow list)"
+					valueExplain = "IP on allow list"
 				}
 			case "SCL":
-				value = parser.ExplainSCL(value)
+				valueExplain = parser.ExplainSCL(value)
 			case "SFV":
-				value = parser.ExplainSFV(value)
+				valueExplain = parser.ExplainSFV(value)
 			}
-
-			parser.table.Append([]string{key, value, antiSpamEplain[strings.ToLower(key)]})
+			parser.Fields = append(parser.Fields, &FilteringField{
+				Key:              key,
+				Value:            value,
+				Explanation:      antiSpamEplain[strings.ToLower(key)],
+				ValueExplanation: valueExplain,
+			})
 		}
 	}
 }
 
-func (parser *EOPParser) ExplainAntiSpamReportCategory(cat string) string {
+func (parser *Parser) ExplainAntiSpamReportCategory(cat string) string {
 	cats := map[string]string{
 		"bulk":   "Mail classified as bulk",
 		"dimp":   "",
@@ -71,53 +76,53 @@ func (parser *EOPParser) ExplainAntiSpamReportCategory(cat string) string {
 	}
 
 	if cats[strings.ToLower(cat)] != "" {
-		cat += " (" + cats[strings.ToLower(cat)] + ")"
+		return cats[strings.ToLower(cat)]
 	}
-	return cat
+	return ""
 }
 
-func (parser *EOPParser) ExplainSCL(scl string) string {
+func (parser *Parser) ExplainSCL(scl string) string {
 	scl = strings.TrimSpace(scl)
 	switch scl {
 	case "-1":
-		scl += " (message skipped spam filtering)"
+		return "message skipped spam filtering"
 	case "0":
-		scl += " (message was not spam)"
+		return "message was not spam"
 	case "1":
-		scl += " (message was not spam)"
+		return "message was not spam"
 	case "5":
-		scl += " (marked as spam)"
+		return "marked as spam"
 	case "6":
-		scl += " (marked as spam)"
+		return "marked as spam"
 	case "9":
-		scl += " (marked as high confidence spam)"
+		return "marked as high confidence spam"
 	}
-	return scl
+	return ""
 }
 
-func (parser *EOPParser) ExplainSFV(sfv string) string {
+func (parser *Parser) ExplainSFV(sfv string) string {
 	sfv = strings.TrimSpace(sfv)
 	switch strings.ToLower(strings.TrimSpace(sfv)) {
 	case "blk":
-		sfv += " (filtering skipped, sender is on user's Blocked Senders list)"
+		return "filtering skipped, sender is on user's Blocked Senders list"
 	case "nspm":
-		sfv += " (filtering marked as non-spam. Mail was delivered)"
+		return "filtering marked as non-spam. Mail was delivered"
 	case "sfe":
-		sfv += " (filtering skipped, sender is on user's Safe Senders list)"
+		return "filtering skipped, sender is on user's Safe Senders list"
 	case "ska":
-		sfv += " (filtering skipped, sender is on allowed senders list or allowed domains list)"
+		return "filtering skipped, sender is on allowed senders list or allowed domains list"
 	case "skb":
-		sfv += " (filtering skipped, sender is on blocked senders list or blocked domains list)"
+		return "filtering skipped, sender is on blocked senders list or blocked domains list"
 	case "ski":
-		sfv += " (filtering skipped for unknown reason)"
+		return "filtering skipped for unknown reason"
 	case "skn":
-		sfv += " (marked as non-spam prior to being processed by spam filtering)"
+		return "marked as non-spam prior to being processed by spam filtering"
 	case "skq":
-		sfv += " (message was released from the quarantine)"
+		return "message was released from the quarantine"
 	case "sks":
-		sfv += " (message was marked as spam prior to being processed by spam filtering)"
+		return "message was marked as spam prior to being processed by spam filtering"
 	case "spm":
-		sfv += " (message was marked as spam by spam filtering)"
+		return "message was marked as spam by spam filtering"
 	}
-	return sfv
+	return ""
 }
