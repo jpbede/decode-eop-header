@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"github.com/jhillyerd/enmime"
-	"github.com/jpbede/decode-eop-header/eop"
+	"github.com/jpbede/eop-header/eop"
 	"io/ioutil"
 )
 
