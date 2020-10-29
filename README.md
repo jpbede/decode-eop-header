@@ -3,8 +3,17 @@ Little tool to decode Microsoft Exchange Online Protection header into a nice vi
 
 **Please be nice to me, the project is work in progress :)**
 
-## Where comes the info from
+## Installing
 
+### Binaries
+You will find pre-compiled for the most common OS under https://github.com/jpbede/eop-header/releases 
+
+### macOS
+Simply use `homebrew` (https://brew.sh/)
+
+To install `eop-header` use following command `brew install jpbede/tap/eop-header`
+
+## Where comes the info from
 Those informations comes from Microsoft documentations and my experiences as deliverability engineer @ CleverReach.
 
 https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spam-message-headers?view=o365-worldwide
