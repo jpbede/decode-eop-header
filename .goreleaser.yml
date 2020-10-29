@@ -58,7 +58,7 @@ brews:
 
     homepage: "https://github.com/jpbede/eop-header"
 
-    description: "Little tool to decode Microsoft Exchange Online Protection header into a nice view and explains them"
+    description: "Tool to decode Microsoft Exchange Online Protection header into a nice view"
 
     # Setting this will prevent goreleaser to actually try to commit the updated
     # formula - instead, the formula file will be stored on the dist folder only,
