@@ -1,4 +1,6 @@
-# eop-header
+# eop-header 
+![build](https://github.com/jpbede/eop-header/workflows/build/badge.svg)
+
 Little tool to decode Microsoft Exchange Online Protection header into a nice view
 
 **Please be nice to me, the project is work in progress :)**
