@@ -48,6 +48,7 @@ func (parser *Parser) ParseAntiSpamReport() {
 				valueExplain = parser.ExplainSFV(value)
 			}
 			parser.Fields = append(parser.Fields, &FilteringField{
+				Header:           "Antispam-Report",
 				Key:              key,
 				Value:            value,
 				Explanation:      antiSpamEplain[strings.ToLower(key)],

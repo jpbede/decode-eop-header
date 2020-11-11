@@ -1,6 +1,7 @@
 package eop
 
 type FilteringField struct {
+	Header           string
 	Key              string
 	Value            string
 	ValueExplanation string
@@ -8,9 +9,8 @@ type FilteringField struct {
 }
 
 func (field *FilteringField) TableRow() []string {
-	val := field.Value
 	if field.ValueExplanation != "" {
-		val += " (" + field.ValueExplanation + ")"
+		return []string{field.Header, field.Key, field.Explanation, field.Value, field.ValueExplanation}
 	}
-	return []string{field.Key, val, field.Explanation}
+	return []string{field.Header, field.Key, field.Explanation, field.Value, ""}
 }

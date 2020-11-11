@@ -22,6 +22,7 @@ func (parser *Parser) ParseMicrosoftAntiSpam() {
 	for key, value := range fields {
 		if fieldsMeanings[strings.ToLower(key)] != "" {
 			parser.Fields = append(parser.Fields, &FilteringField{
+				Header:           "MS-Antispam",
 				Key:              key,
 				Value:            value,
 				Explanation:      fieldsMeanings[strings.ToLower(key)],

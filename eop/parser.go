@@ -15,9 +15,10 @@ type Parser struct {
 
 func NewParserWithEnvelop(env *enmime.Envelope) *Parser {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Field", "Value", "Meaning"})
+	table.SetHeader([]string{"Header", "Field", "Field Meaning", "Value", "Value Meaning"})
 	table.SetRowSeparator("-")
 	table.SetRowLine(true)
+	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	return &Parser{
 		envelope: env,
